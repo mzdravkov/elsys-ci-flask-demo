@@ -3,3 +3,4 @@ Flask-SQLAlchemy
 Werkzeug
 flask-socketio
 eventlet
+pytest
