@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br/>
+<form method="POST" url="/register" enctype=multipart/form-data>
+  <label name="username">Username:</label>
+  <input type="text" name="username"/><br/>
+  <label name="password">Password:</label>
+  <input type="password" name="password"/><br/>
+  <label name="description">Description:</label>
+  <input type="text" name="description"/><br/>
+  <label name="picture">Profile picture:</label>
+  <input type=file name="profile_picture">
+  <br/><br/>
+  <button type="submit">Register</button>
+</form>
+
+{% endblock %}

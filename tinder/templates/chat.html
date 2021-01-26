@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block js %}
+  <script>
+    $(document).ready(function() {
+      updateScroll('messages');
+
+      var current_user_id = {{ current_user.id }};
+      var correspondent_id = {{ correspondent.id }};
+
+      var socket = io();
+      socket.on('connect', function() {
+        socket.emit('join', {
+          sender: current_user_id,
+          receiver: correspondent_id
+        });
+      });
+
+      $('#send-btn').click(function() {
+        socket.emit('send_message', {
+          sender: current_user_id,
+          receiver: correspondent_id,
+          msg: $('#message-text').val()
+        });
+        $('#message-text').val('');
+      });
+
+      socket.on('message', function(data) {
+        $('#messages').append(data.msg + '<br/>');
+        updateScroll('messages');
+      });
+    });
+  </script>
+{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto">
+  <div style="height: 80px">
+    <img src="/uploads/{{ correspondent.picture }}" style="max-width: 60px; max-height: 60px; float: left">
+    <h1 style="float: left; margin-left: 30px"><b>{{ correspondent.username }}</b></h1>
+  </div>
+
+  <hr>
+
+  <div id="messages" style="height: 50%; overflow: auto;">
+    {% for message in messages %}
+    {{ message.sender.username }}: {{ message.content }} <br/>
+    {% endfor %}
+  </div>
+
+  <br/>
+  <hr>
+  <form>
+    <input type="text" id="message-text" name="message" style="width: 80%">
+    <button type="button" id="send-btn">Send</button>
+  </form>
+{% endblock%}

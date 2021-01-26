@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div style="max-width: 600px; margin: 0 auto">
+  <center>
+
+    {% if random_user %}
+      <h2><b>{{ random_user.username }}</b></h2>
+      <br/>
+
+      <img src="/uploads/{{ random_user.picture }}" style="max-width: 300px; max-height: 450px">
+      <br/>
+      <div id="description" style="margin: 30px">
+      {{ random_user.description }}
+      </div>
+      <br/>
+
+      <div style="width: 200px">
+        <div style="width: 100px; float: left">
+          <a href="/">Nope</a>
+        </div>
+        <div style="width: 100px; float: right">
+          <a href="/like/{{ random_user.id }}">Me gusta!</a>
+        </div>
+      </div>
+
+    {% else %}
+      There's no one else around you...
+    {% endif %}
+
+    <br/>
+    <br/>
+    <br/>
+    <hr/>
+    <h4>Matches:</h4>
+    <br/>
+    {% for match in matches %}
+      <div class="card" style="width: 30%; float: left; margin: 1%">
+        <img src="/uploads/{{ match.picture }}" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{ match.username }}</h5>
+          <p class="card-text">{{ match.description }}</p>
+        </div>
+        <a href="/chat/{{ match.id }}">Open chat</a>
+      </div>
+
+    {% endfor %}
+  </center>
+
+</div>
+{% endblock %}
