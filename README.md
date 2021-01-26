@@ -1,5 +1,7 @@
 # tinder-flask
 
+[![Build Status](https://travis-ci.com/mzdravkov/elsys-ci-flask-demo.svg?branch=main)](https://travis-ci.com/mzdravkov/elsys-ci-flask-demo)
+
 ## Installation
 
 ```bash
